@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Demon Slayer RPG Bot</title>
+<meta name="description" content="Privacy Policy for Demon Slayer RPG Discord Bot.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --blood:   #8b0000;
+  --crimson: #c0392b;
+  --ember:   #e74c3c;
+  --gold:    #c9a84c;
+  --gold-lt: #f0d080;
+  --bone:    #e8dcc8;
+  --ash:     #a89880;
+  --void:    #0a0608;
+  --text:    #d4c4b0;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void); color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 18px; line-height: 1.7;
+  overflow-x: hidden; cursor: none;
+}
+
+.cursor {
+  position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+  background: var(--crimson); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 36px; height: 36px;
+  border: 1px solid var(--crimson); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform .15s ease-out; opacity: .5;
+}
+
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none; z-index: 1; opacity: .4;
+}
+
+#bg-canvas {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 0; pointer-events: none;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0;
+  background: rgba(8,6,8,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(139,0,0,0.2);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto; padding: 0 40px;
+}
+.nav-logo {
+  font-family: 'Cinzel Decorative', serif; font-size: 14px; font-weight: 700;
+  color: var(--gold); letter-spacing: 2px; text-decoration: none;
+}
+.nav-logo span { color: var(--ember); }
+.nav-back {
+  font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--ash); text-decoration: none;
+  display: flex; align-items: center; gap: 8px; transition: color .2s;
+}
+.nav-back:hover { color: var(--gold-lt); }
+
+.page-wrap {
+  max-width: 820px; margin: 0 auto;
+  padding: 140px 40px 100px;
+  position: relative; z-index: 2;
+}
+
+.page-header { margin-bottom: 64px; }
+.page-eyebrow {
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 14px;
+  opacity: 0; animation: fadeUp .8s ease .2s forwards;
+}
+.page-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--crimson); }
+.page-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(32px, 5vw, 58px); font-weight: 900;
+  color: var(--bone); line-height: 1.05; letter-spacing: -1px; margin-bottom: 20px;
+  opacity: 0; animation: fadeUp .8s ease .3s forwards;
+}
+.page-title span { color: var(--gold); display: block; font-size: .55em; letter-spacing: 4px; margin-top: 6px; }
+.page-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, var(--blood), var(--crimson), transparent);
+  margin: 24px 0;
+  opacity: 0; animation: fadeUp .8s ease .4s forwards;
+}
+.page-meta {
+  font-style: italic; color: var(--ash); font-size: 15px;
+  opacity: 0; animation: fadeUp .8s ease .5s forwards;
+}
+
+.toc {
+  background: rgba(20,10,14,0.8); border: 1px solid rgba(139,0,0,0.15);
+  border-left: 3px solid var(--blood); padding: 28px 32px; margin-bottom: 56px;
+  opacity: 0; animation: fadeUp .8s ease .6s forwards;
+}
+.toc-title {
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+}
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.toc-list a {
+  font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px;
+  color: var(--ash); text-decoration: none;
+  display: flex; align-items: center; gap: 10px; transition: color .2s;
+}
+.toc-list a::before { content: '§'; color: var(--crimson); }
+.toc-list a:hover { color: var(--gold-lt); }
+
+.doc-section {
+  margin-bottom: 52px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.doc-section.visible { opacity: 1; transform: translateY(0); }
+.section-anchor { display: block; margin-top: -80px; padding-top: 80px; }
+
+.section-heading {
+  font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--bone);
+  margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(139,0,0,0.2);
+  display: flex; align-items: center; gap: 14px;
+}
+.section-num {
+  font-family: 'Cinzel Decorative', serif; font-size: 11px;
+  color: var(--crimson); opacity: .8; flex-shrink: 0;
+}
+
+.doc-p { color: var(--text); font-size: 17px; line-height: 1.85; margin-bottom: 16px; }
+.doc-p:last-child { margin-bottom: 0; }
+
+.doc-list { list-style: none; margin: 16px 0; display: flex; flex-direction: column; gap: 10px; }
+.doc-list li {
+  padding-left: 24px; position: relative;
+  color: var(--ash); font-style: italic; font-size: 16px; line-height: 1.7;
+}
+.doc-list li::before {
+  content: '⊕'; position: absolute; left: 0;
+  color: var(--crimson); font-style: normal; font-size: 12px; top: 4px;
+}
+
+.callout {
+  padding: 20px 24px; margin: 20px 0;
+  border-left: 3px solid; border-radius: 0 4px 4px 0;
+}
+.callout.info {
+  background: rgba(201,168,76,0.06); border-color: rgba(201,168,76,0.4);
+}
+.callout.info .callout-label {
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.callout.safe {
+  background: rgba(46,125,50,0.07); border-color: rgba(76,175,80,0.3);
+}
+.callout.safe .callout-label {
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: #81c784; margin-bottom: 8px;
+}
+.callout p { font-size: 16px; line-height: 1.7; color: var(--ash); font-style: italic; }
+
+/* Data table */
+.data-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0;
+  font-size: 15px;
+}
+.data-table th {
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold);
+  padding: 12px 16px; text-align: left;
+  border-bottom: 1px solid rgba(139,0,0,0.3);
+  background: rgba(20,10,14,0.6);
+}
+.data-table td {
+  padding: 12px 16px; color: var(--ash); font-style: italic; line-height: 1.5;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: top;
+}
+.data-table tr:hover td { background: rgba(139,0,0,0.05); }
+
+.page-footer {
+  border-top: 1px solid rgba(255,255,255,0.05); margin-top: 80px; padding-top: 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 20px; position: relative; z-index: 2;
+}
+.footer-copy {
+  font-family: 'Cinzel', serif; font-size: 9px;
+  letter-spacing: 2px; color: rgba(255,255,255,0.12);
+}
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a {
+  font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(168,152,128,.4);
+  text-decoration: none; transition: color .2s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .page-wrap { padding: 120px 20px 80px; }
+  .nav-inner { padding: 0 20px; }
+  .data-table { font-size: 13px; }
+  .data-table th, .data-table td { padding: 10px 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Demon<span>Slayer</span> RPG</a>
+    <a href="index.html" class="nav-back">← Back to Home</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-eyebrow">Legal</div>
+    <h1 class="page-title">Privacy Policy<span>Demon Slayer RPG Bot</span></h1>
+    <div class="page-divider"></div>
+    <p class="page-meta">Last updated: March 2026 &nbsp;·&nbsp; We believe you deserve to know exactly what we collect and why.</p>
+  </div>
+
+  <nav class="toc" aria-label="Table of Contents">
+    <div class="toc-title">Table of Contents</div>
+    <ul class="toc-list">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#what-we-collect">What We Collect</a></li>
+      <li><a href="#how-we-use">How We Use Your Data</a></li>
+      <li><a href="#storage">Data Storage &amp; Security</a></li>
+      <li><a href="#sharing">Data Sharing</a></li>
+      <li><a href="#retention">Data Retention</a></li>
+      <li><a href="#your-rights">Your Rights</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#third-party">Third-Party Services</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- SECTIONS -->
+
+  <div class="doc-section">
+    <a class="section-anchor" id="overview"></a>
+    <h2 class="section-heading"><span class="section-num">§ 01</span> Overview</h2>
+    <p class="doc-p">Demon Slayer RPG Bot ("the Bot", "we", "us", "our") is committed to protecting the privacy of all users. This Privacy Policy explains what information we collect when you interact with the Bot, how we use it, how it is stored, and what rights you have over your data.</p>
+    <div class="callout safe">
+      <div class="callout-label">✓ Our Commitment</div>
+      <p>We collect only the data strictly necessary to operate the Bot. We do not sell your data. We do not share it with advertisers. We never will.</p>
+    </div>
+    <p class="doc-p">By using the Bot, you consent to the collection and use of information as described in this Policy. If you do not agree, please stop using the Bot and request deletion of your data by contacting our support server.</p>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="what-we-collect"></a>
+    <h2 class="section-heading"><span class="section-num">§ 02</span> What We Collect</h2>
+    <p class="doc-p">We collect and store the following categories of data:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>What It Is</th>
+          <th>Why We Need It</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--bone)">Discord User ID</strong></td>
+          <td>Your unique Discord account number</td>
+          <td>To identify your account in our database and link all your game data to you</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Discord Username</strong></td>
+          <td>Your username as it appears on Discord</td>
+          <td>To display your name in leaderboards and embeds</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Game Progress</strong></td>
+          <td>Characters, levels, currencies, team, inventory, fragments</td>
+          <td>To save and retrieve your in-game state</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Battle Records</strong></td>
+          <td>Win/loss history, PvP stats, kill streak</td>
+          <td>To display rankings and track achievements</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Transaction History</strong></td>
+          <td>In-game purchases (coins, gems), pull history</td>
+          <td>To maintain economy integrity and resolve disputes</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Command Usage</strong></td>
+          <td>Which commands you run and when</td>
+          <td>To detect abuse, debug issues, and improve features</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Guild/Server ID</strong></td>
+          <td>The Discord server where you used the Bot</td>
+          <td>To manage server-specific raid and guild war settings</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--bone)">Premium Status</strong></td>
+          <td>Whether you have an active Patreon subscription</td>
+          <td>To apply Premium benefits to your account</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <div class="callout-label">ℹ What We Do NOT Collect</div>
+      <p>We do not collect your email address, phone number, real name, IP address, payment card details, messages sent in Discord channels (other than commands directed at the Bot), or any data from Discord DMs unless you directly message the Bot a command.</p>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="how-we-use"></a>
+    <h2 class="section-heading"><span class="section-num">§ 03</span> How We Use Your Data</h2>
+    <p class="doc-p">Your data is used exclusively to operate, maintain, and improve the Bot. Specifically:</p>
+    <ul class="doc-list">
+      <li>To provide core Bot functionality — saving your characters, balance, team, and progress between sessions.</li>
+      <li>To power leaderboards, rankings, and social features such as guild wars and raid participation.</li>
+      <li>To enforce fair play — detecting and acting on exploitation, multi-accounting, and abuse.</li>
+      <li>To apply Premium benefits to accounts that have an active subscription.</li>
+      <li>To debug errors, investigate reports, and improve the Bot's stability and features.</li>
+      <li>To send important bot-related announcements via our support server (never unsolicited DMs).</li>
+    </ul>
+    <p class="doc-p">We do not use your data for advertising, profiling, or any purpose unrelated to operating the Bot.</p>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="storage"></a>
+    <h2 class="section-heading"><span class="section-num">§ 04</span> Data Storage &amp; Security</h2>
+    <p class="doc-p">Your data is stored in a MongoDB database hosted on secured cloud infrastructure. We implement reasonable technical and organisational measures to protect your data from unauthorised access, loss, or misuse.</p>
+    <ul class="doc-list">
+      <li>Database access is restricted to authorised developers only.</li>
+      <li>No plaintext passwords are stored — we rely on Discord's own authentication.</li>
+      <li>Regular backups are performed to prevent data loss.</li>
+    </ul>
+    <div class="callout info">
+      <div class="callout-label">ℹ Note on Security</div>
+      <p>No system is 100% secure. While we take data protection seriously, we cannot guarantee absolute security of data transmitted over the internet. In the event of a data breach we will notify affected users via our Discord support server as promptly as possible.</p>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="sharing"></a>
+    <h2 class="section-heading"><span class="section-num">§ 05</span> Data Sharing</h2>
+    <p class="doc-p">We do not sell, rent, or trade your personal data to any third party. Period.</p>
+    <p class="doc-p">We may share limited data only in the following circumstances:</p>
+    <ul class="doc-list">
+      <li><strong style="color:var(--bone)">Service Providers:</strong> Our hosting and database providers process data on our behalf under strict data processing agreements. They are not permitted to use your data for their own purposes.</li>
+      <li><strong style="color:var(--bone)">Patreon:</strong> When you subscribe to Premium via Patreon, Patreon shares your Patreon user ID and subscription status with us to verify your tier. We receive no payment details. Patreon's own privacy policy governs what they collect.</li>
+      <li><strong style="color:var(--bone)">Legal Requirements:</strong> We may disclose data if required by law, court order, or governmental authority.</li>
+      <li><strong style="color:var(--bone)">Safety:</strong> We may share data to protect the safety of our users or the public where we believe there is a serious risk of harm.</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="retention"></a>
+    <h2 class="section-heading"><span class="section-num">§ 06</span> Data Retention</h2>
+    <p class="doc-p">We retain your data for as long as you are an active user of the Bot, or as long as necessary to provide the service. Specifically:</p>
+    <ul class="doc-list">
+      <li>Active accounts are retained indefinitely to preserve your game progress.</li>
+      <li>Accounts with no activity for more than 12 consecutive months may be purged at our discretion.</li>
+      <li>Command usage logs are retained for up to 90 days for debugging and anti-abuse purposes.</li>
+      <li>Upon a verified deletion request, your data will be removed within 30 days.</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="your-rights"></a>
+    <h2 class="section-heading"><span class="section-num">§ 07</span> Your Rights</h2>
+    <p class="doc-p">Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
+    <ul class="doc-list">
+      <li><strong style="color:var(--bone)">Right of Access:</strong> You may request a copy of the data we hold about you.</li>
+      <li><strong style="color:var(--bone)">Right to Rectification:</strong> You may request correction of inaccurate data.</li>
+      <li><strong style="color:var(--bone)">Right to Erasure:</strong> You may request deletion of your account and all associated data ("right to be forgotten").</li>
+      <li><strong style="color:var(--bone)">Right to Restriction:</strong> You may request we limit processing of your data in certain circumstances.</li>
+      <li><strong style="color:var(--bone)">Right to Object:</strong> You may object to processing based on legitimate interests.</li>
+    </ul>
+    <div class="callout safe">
+      <div class="callout-label">✓ How to Exercise Your Rights</div>
+      <p>To submit any data request, join our support server at <a href="https://discord.gg/gGkMq8y43e" style="color:var(--gold);text-decoration:none;">discord.gg/gGkMq8y43e</a> and open a support ticket. We will respond within 30 days. Please note that deleting your data will permanently erase all in-game progress and cannot be undone.</p>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="children"></a>
+    <h2 class="section-heading"><span class="section-num">§ 08</span> Children's Privacy</h2>
+    <p class="doc-p">The Bot is not directed at children under 13 years of age, consistent with Discord's minimum age requirement. We do not knowingly collect personal data from children under 13. If we become aware that a child under 13 has provided us with personal information, we will take steps to delete it promptly.</p>
+    <p class="doc-p">If you are a parent or guardian and believe your child has provided data to the Bot, please contact us via our support server.</p>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="third-party"></a>
+    <h2 class="section-heading"><span class="section-num">§ 09</span> Third-Party Services</h2>
+    <p class="doc-p">The Bot integrates with the following third-party services, each governed by their own privacy policies:</p>
+    <ul class="doc-list">
+      <li><strong style="color:var(--bone)">Discord:</strong> The platform on which the Bot operates. Discord collects its own data in accordance with its <a href="https://discord.com/privacy" target="_blank" style="color:var(--gold);text-decoration:none;">Privacy Policy</a>.</li>
+      <li><strong style="color:var(--bone)">Patreon:</strong> Used for Premium subscription management. Governed by <a href="https://www.patreon.com/policy/privacy" target="_blank" style="color:var(--gold);text-decoration:none;">Patreon's Privacy Policy</a>.</li>
+      <li><strong style="color:var(--bone)">Top.gg:</strong> We submit server count statistics to Top.gg for bot listing purposes. No personal user data is shared. Governed by <a href="https://top.gg/privacy" target="_blank" style="color:var(--gold);text-decoration:none;">Top.gg's Privacy Policy</a>.</li>
+      <li><strong style="color:var(--bone)">MongoDB Atlas / Hosting Provider:</strong> Cloud infrastructure used to store game data. Processes data only as instructed by us.</li>
+    </ul>
+    <p class="doc-p">We are not responsible for the privacy practices of these third parties. We encourage you to review their policies independently.</p>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="changes"></a>
+    <h2 class="section-heading"><span class="section-num">§ 10</span> Changes to This Policy</h2>
+    <p class="doc-p">We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. When we make significant changes, we will update the "Last updated" date at the top of this page and announce the update in our support server.</p>
+    <p class="doc-p">Your continued use of the Bot after any changes take effect constitutes your acceptance of the revised Policy. If you do not agree with the revised Policy, you may request deletion of your data and stop using the Bot.</p>
+  </div>
+
+  <div class="doc-section">
+    <a class="section-anchor" id="contact"></a>
+    <h2 class="section-heading"><span class="section-num">§ 11</span> Contact</h2>
+    <p class="doc-p">If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us through our official Discord server:</p>
+    <div class="callout info">
+      <div class="callout-label">📬 Privacy Requests</div>
+      <p>Join <a href="https://discord.gg/gGkMq8y43e" style="color:var(--gold);text-decoration:none;">discord.gg/gGkMq8y43e</a> and open a ticket tagged <strong style="color:var(--bone)">Privacy Request</strong>. We aim to respond within 30 days. For urgent data deletion requests we will prioritise your case.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-copy">© 2025 DEMON SLAYER RPG · NOT AFFILIATED WITH KOYOHARU GOTOUGE</span>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+
+const canvas=document.getElementById('bg-canvas');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const PARTICLES=[];
+class Particle{
+  constructor(){this.reset(true);}
+  reset(init){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.size=Math.random()*2+0.5;this.vy=-(Math.random()*.5+.15);this.vx=(Math.random()-.5)*.3;this.life=1;this.decay=Math.random()*.003+.001;this.hue=Math.random()<.6?0:30;}
+  update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;if(this.life<=0||this.y<-10)this.reset(false);}
+  draw(){ctx.save();ctx.globalAlpha=this.life*.4;ctx.fillStyle=`hsl(${this.hue},80%,55%)`;ctx.shadowBlur=6;ctx.shadowColor=`hsl(${this.hue},80%,40%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore();}
+}
+for(let i=0;i<60;i++)PARTICLES.push(new Particle());
+function drawGrid(){ctx.save();ctx.strokeStyle='rgba(139,0,0,0.03)';ctx.lineWidth=1;for(let x=0;x<W;x+=80){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}for(let y=0;y<H;y+=80){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}ctx.restore();}
+(function anim(){ctx.clearRect(0,0,W,H);drawGrid();PARTICLES.forEach(p=>{p.update();p.draw();});requestAnimationFrame(anim);})();
+
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.doc-section').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
